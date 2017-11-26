@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find surface_filter)/config/surface_filter.rviz" output="screen" respawn="true">
+  </node>
+
+  <include file="$(find openni2_launch)/launch/openni2.launch"/>
+
+  <node name="surface_filter_node" pkg="surface_filter" type="surface_filter_node" args="" output="screen" respawn="true">
+    <param name="history_length" value="50" type="int"/>
+    <param name="y_surface_size" value="1" type="double"/>
+    <param name="x_surface_size" value="1" type="double"/>
+    <param name="leaf_size" value="0.01" type="double"/>
+  </node>
+
+  <node pkg="tf2_ros" type="static_transform_publisher" name="camera_tf_broadcaster" args="0 0 0.62 0 1.57079632679 0 surface camera_link" />
+</launch>
